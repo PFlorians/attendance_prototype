@@ -19,7 +19,7 @@ return [
         // Monolog settings
         'logger' => [
             'name' => 'attendance_proto_log',
-            'path' => '../logs/app.log',//bolo to __DIR__.'/..logs/app.log' - ale toto je windows cize...
+            'path' => __DIR__.'/../logs/app.log',//bolo to __DIR__.'/..logs/app.log' - ale toto je windows cize...
             'level' => \Monolog\Logger::DEBUG,
         ],
     ],

@@ -16,26 +16,7 @@ session_start();
 // Instantiate the app
 $stgs = require __DIR__ . '/../src/settings.php';//settings matrix is situate here
 $app = new \Slim\App($stgs);
-$container = $app->getContainer();//vsetky dependencies
-//$cont je sam $container
-$container['db']=function($cont)
-{
-    $db=$cont['settings']['db'];
-    $pdo=new PDO('mysql:host='.$db['host'].';dbname='.$db['dbname'], $db['user'], $db['password']);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//throw exception on error
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    return $pdo;
-};
-echo "tst <br/>";
-var_dump($container['db']);
-echo "<br/>";
-$app->get('/abc', function ($req, $res, $args)
-{
-    //$l=$this->get('logger');
-    $d=$this->db;
-    var_dump($d);
-    return $d;
-});
+
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';
 
