@@ -33,7 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Traveller\\": ["src/", "src/ad/", "src/db/", "src/spark/", "src/util/"]
+            "attendance\\": ["src/", "src/ad/", "src/db/", "src/spark/", "src/util/"]
         }
     }
 }

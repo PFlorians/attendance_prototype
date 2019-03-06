@@ -22,8 +22,16 @@ $container['logger'] = function ($c) {
 $container['db']=function($cont)
 {
     $db=$cont['settings']['db'];
-    $pdo=new PDO('mysql:host='.$db['host'].';dbname='.$db['dbname'], $db['user'], $db['password']);
+    //sql server
+    $conn = sqlsrv_connect($db['host'], $db['conn_string']);
+    return $conn;//return connection to database
+    /*$pdo=new PDO('mysql:host='.$db['host'].';dbname='.$db['dbname'], $db['user'], $db['password']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//throw exception on error
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    return $pdo;
+    return $pdo;*/
+};
+
+$container['\attendance\Init']=function($cont)
+{
+    return new attendance\Init($cont['logger'], $cont['renderer'], $cont['db']);
 };

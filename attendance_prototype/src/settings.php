@@ -6,10 +6,13 @@ return [
         'mode' => 'development',
         //databse connection for srvcattendance
         'db'=>[
-            'host'=>'localhost',
-            'user'=>'srvcattendance',
-            'password'=>'Rdk45fsM1Z',
-            'dbname' => 'dev_attendance'
+            'host'=>'SPARROW\\SQLEXPRESS',
+            'conn_string' => [
+                'Database' => 'attendance_dev'//,
+                /*'UID'=>'sparrow\\hackerman',
+                'PWD'=>'HeroOfOrion1988',
+                'CharacterSet' => 'UTF-8'*/
+            ]
         ],
         // Renderer settings
         'renderer' => [
