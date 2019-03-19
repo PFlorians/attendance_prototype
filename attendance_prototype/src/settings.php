@@ -8,7 +8,8 @@ return [
         'db'=>[
             'host'=>'SPARROW\\SQLEXPRESS',
             'conn_string' => [
-                'Database' => 'attendance_dev'//,
+                'Database' => 'attendance_dev',//,
+                'ReturnDatesAsStrings' => true
                 /*'UID'=>'sparrow\\hackerman',
                 'PWD'=>'HeroOfOrion1988',
                 'CharacterSet' => 'UTF-8'*/

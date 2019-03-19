@@ -9,21 +9,101 @@
         {
             $this->dbconn = $dbc;
         }
-        public function tst()
+        public function getAttendanceSummaryOfUser($uname, $monthAtt)
         {
-            $qry="declare @errMsg varchar(255); exec getAttendanceSummaryOfUser 'pflorian', 2, @errMsg out;";
-            $stmt = sqlsrv_prepare($this->dbconn, $qry);
-            if($stmt===false)
+            $sqlQryRes="";//error variable
+            $paramsArray=array(
+                array(&$uname, SQLSRV_PARAM_IN),
+                array(&$monthAtt, SQLSRV_PARAM_IN),
+                array(&$sqlQryRes, SQLSRV_PARAM_OUT)
+            );
+            $res=[];
+            $qry="exec getAttendanceSummaryOfUser @ulogin=?, @monthAtt=?, @errMsg=?";//key statement
+            $stmt = sqlsrv_prepare($this->dbconn, $qry, $paramsArray);
+            if($stmt===false)//error on preparation
             {
                 die(print_r(sqlsrv_errors(), true));
             }
-            else {
-                $n=sqlsrv_execute($stmt);
-                while($res=sqlsrv_fetch_array($n, SQLSRV_FETCH_ASSOC))
+            else
+            {
+                if(sqlsrv_execute($stmt))
                 {
-                    echo $res["bonus_id"]." ".$res["descr"]." ".$res["% bonus"]."<br/>";
+                    while($row=sqlsrv_fetch_array($stmt))
+                    {
+                        //echo $row["Worked together"]." ".$row["Bonus hours"]." ".$row["Absences together"]."<br/>";
+                        $res[]=$row;
+                    }
+
+                    $res=sqlsrv_next_result($stmt);//needs to be called after fetch
+                    if($sqlQryRes!="")
+                    {
+                        die(print_r($sqlQryRes, true));
+                    }
+                    else
+                    {
+                        return $res;
+                    }
+                }
+                else//error on execution
+                {
+                    die(print_r(sqlsrv_errors(), true));
                 }
             }
+            sqlsrv_free_stmt($stmt);
+        }
+        //returns monthly attendance data
+        public function getMonthlyAttendanceOfUser($uname, $monthAtt)
+        {
+            $sqlQryRes="";//error variable
+            $paramsArray=array(
+                array(&$uname, SQLSRV_PARAM_IN),
+                array(&$monthAtt, SQLSRV_PARAM_IN),
+                array(&$sqlQryRes, SQLSRV_PARAM_OUT)
+            );
+            $res=[];
+            $qry="exec getMonthlyAttendanceOfUser @ulogin=?, @monthAtt=?, @errMsg=?";//key statement
+            $stmt = sqlsrv_prepare($this->dbconn, $qry, $paramsArray);
+            if($stmt===false)//error on preparation
+            {
+                die(print_r(sqlsrv_errors(), true));
+            }
+            else
+            {
+                if(sqlsrv_execute($stmt))
+                {
+                    while($row=sqlsrv_fetch_array($stmt))
+                    {
+                        //echo $row->Day." ".$row->From." ". $row->Until." ".$row->Worked."<br/>";
+                        $res[]=$row;
+                    }
+
+                    $res=sqlsrv_next_result($stmt);//needs to be called after fetch
+                    if($sqlQryRes!="")
+                    {
+                        die(print_r($sqlQryRes, true));
+                    }
+                    else
+                    {
+                        return $res;
+                    }
+                }
+                else//error on execution
+                {
+                    die(print_r(sqlsrv_errors(), true));
+                }
+            }
+            sqlsrv_free_stmt($stmt);
+        }
+        public function getMonthlyBonusOfUser($uname, $monthAtt)
+        {
+            $sqlQryRes="";//error variable
+            $paramsArray=array(
+                array(&$uname, SQLSRV_PARAM_IN),
+                array(&$monthAtt, SQLSRV_PARAM_IN),
+                array(&$sqlQryRes, SQLSRV_PARAM_OUT)
+            );
+            $res=[];
+            
         }
     }
  ?>

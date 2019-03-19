@@ -17,7 +17,7 @@
         public function init($request, $response, $args)
         {
             $x=new DBinit($this->dbconn);
-            $x->tst();
+            $x->getAttendanceSummaryOfUser('pflorian', 2);
         }
     }
  ?>
