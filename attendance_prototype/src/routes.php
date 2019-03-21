@@ -8,7 +8,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 // Routes
 $app->get('/abc', function (Request $request, Response $response, array $args)
 {
-    $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
     $dbinit=$x->init($request, $response, $args);
     $parser=new \attendance\AttendanceDataParser();
     $parser->setBasicMapper($dbinit->getBasicMapper());
@@ -17,11 +17,10 @@ $app->get('/abc', function (Request $request, Response $response, array $args)
     $parser->setSummaryMapper($dbinit->getSummaryMapper());
     return $this->renderer->render($response, 'test_index.phtml', ['parser' => $parser]);
 });
-$app->get('/ldap', function (Request $req, Response $resp, array $args)
-{
+/*{
     $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
     $x->init();
-});
+});*/
 $app->get('/xyz', '\attendance\Init:init');
 
 $app->get('/[{name}]', function (Request $request, Response $response, array $args) {

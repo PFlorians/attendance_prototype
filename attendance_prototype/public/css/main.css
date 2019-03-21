@@ -101,13 +101,29 @@ iframe {
   width: 100%;
   margin: 0 auto;
 }
-.limiter50 {
-  width: 50%;
-  margin: 0 auto;
+.marginAuto
+{
+        margin: auto;
+}
+.marginRight
+{
+    margin-right: auto;;
+}
+.marginLeft
+{
+    margin-left: auto;
+}
+.marginBottom-10
+{
+    margin-bottom: 1vw;
+}
+.dynamicFont
+{
+    font-size: 3vw;
 }
 .container-table100 {
   width: 100%;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   background: #c850c0;
   background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
   background: -o-linear-gradient(45deg, #4158d0, #c850c0);
@@ -259,25 +275,63 @@ tbody tr:hover {
     left: 30px;
     top: 0;
   }
-  table tbody tr td:nth-child(1):before {
+  #attendanceTab tbody tr td:nth-child(1):before {
     content: "Day";
   }
-  table tbody tr td:nth-child(2):before {
+  #attendanceTab tbody tr td:nth-child(2):before {
     content: "Arrival";
   }
-  table tbody tr td:nth-child(3):before {
+  #attendanceTab tbody tr td:nth-child(3):before {
     content: "Departure";
   }
-  table tbody tr td:nth-child(4):before {
+  #attendanceTab tbody tr td:nth-child(4):before {
     content: "Worked hours";
   }
-  table tbody tr td:nth-child(5):before {
+  #attendanceTab tbody tr td:nth-child(5):before {
     content: "Shift";
+  }
+/*absences*/
+  #absenceTab tbody tr td:nth-child(1):before {
+    content: "Day";
+  }
+  #absenceTab tbody tr td:nth-child(2):before {
+    content: "Type";
+  }
+  #absenceTab tbody tr td:nth-child(3):before {
+    content: "Hours absent";
+  }
+  #absenceTab tbody tr td:nth-child(4):before {
+    content: "Description";
+  }
+  /*summary table*/
+  #summaryTable tbody tr td:nth-child(1):before {
+    content: "Worked";
+  }
+  #summaryTable tbody tr td:nth-child(2):before {
+    content: "Bonus";
+  }
+  #summaryTable tbody tr td:nth-child(3):before {
+    content: "Absent";
+  }
+  /*bonus table*/
+  #bonusTab tbody tr td:nth-child(1):before {
+    content: "Day";
+  }
+  #bonusTab tbody tr td:nth-child(2):before {
+    content: "ID";
+  }
+  #bonusTab tbody tr td:nth-child(3):before {
+    content: "Bonus hours";
+  }
+  #bonusTab tbody tr td:nth-child(4):before {
+    content: "Description";
   }
   /**table tbody tr td:nth-child(6):before {
     content: "Total";
   }**/
-
+  .column1,
+  .column2,
+  .column3,
   .column4,
   .column5,
   .column6 {
@@ -295,6 +349,10 @@ tbody tr:hover {
 
   tbody tr {
     font-size: 14px;
+  }
+  .dynamicFont
+  {
+      font-size: 4vw;
   }
 }
 

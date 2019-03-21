@@ -30,7 +30,7 @@ $container['db']=function($cont)
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;*/
 };
-$container['ldap']=function($c)
+/*$container['ldap']=function($c)
 {
     $ldap=$c['settings']['ldap'];
     $connector=ldap_connect($ldap['controller_hostname'].$ldap['domain'], $ldap['ldap_port']);
@@ -46,9 +46,9 @@ $container['ldap']=function($c)
         return null;
     }
 
-};
+};*/
 //being used in combination with routes /xyz
 $container['\attendance\Init']=function($cont)
 {
-    return new attendance\Init($cont['logger'], $cont['renderer'], $cont['db'], $cont['ldap']);
+    return new attendance\Init($cont['logger'], $cont['renderer'], $cont['db']);
 };

@@ -40,6 +40,11 @@
                             <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse " id="mainNav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <button class="btn btn-primary">Edit</button>
+                            </li>
+                        </ul>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a href="#" id="login" data-container="body" data-toggle="popover" title="Enter Credentials"
@@ -61,9 +66,12 @@
             </header>
     <div class="limiter"> <!-- attendance table -->
 		<div class="container-table100">
+            <button class="btn btn-primary marginRight marginBottom-10"><span class="fas fa-angle-left"></span>Previous Month</button>
+            <h3 class="marginAuto marginBottom-10 dynamicFont">Monthly Attendance</h3>
+            <button class="btn btn-primary marginLeft marginBottom-10">Next Month<span class="fas fa-angle-right"></span></button>
 			<div class="wrap-table100">
 				<div class="table100">
-					<table>
+					<table id="attendanceTab">
 						<thead>
 							<tr class="table100-head">
 								<th class="column1">Day</th>
@@ -80,63 +88,82 @@
 					</table>
 				</div>
 			</div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="limiter50">
-                            <div class="container-table100">
-                                <div class="wrap-table100">
-                    				<div class="table100">
-                    					<table>
-                    						<thead>
-                    							<tr class="table100-head">
-                    								<th class="column1">Day</th>
-                    								<th class="column2">Arrival</th>
-                    								<th class="column3">Departure</th>
-                    								<th class="column4">Hours Worked</th>
-                    								<th class="column5">Shift</th>
-                    							</tr>
-                    						</thead>
-                    						<tbody>
-                                                <?php $parser->fillAttendanceTable(); ?>
-                    						</tbody>
-                    					</table>
-                    				</div>
-                    			</div>
-                            </div>
-                        </div>
-                    </div><!-- col 2 -->
-                    <div class="col-6">
-                        <div class="limiter50">
-                            <div class="container-table100">
-                                <div class="wrap-table100">
-                    				<div class="table100">
-                    					<table>
-                    						<thead>
-                    							<tr class="table100-head">
-                    								<th class="column1">Day</th>
-                    								<th class="column2">Arrival</th>
-                    								<th class="column3">Departure</th>
-                    								<th class="column4">Hours Worked</th>
-                    								<th class="column5">Shift</th>
-                    							</tr>
-                    						</thead>
-                    						<tbody>
-                                                <?php $parser->fillAttendanceTable(); ?>
-                    						</tbody>
-                    					</table>
-                    				</div>
-                    			</div>
+		</div>
+	</div><!-- end of attendance table -->
+    <div class="container">
+        <div class="row"><!-- row -->
+            <div class="col-md-7 col-sm-12">
+                <div class="limiter">
+                    <div class="container-table100">
+                        <h3>Monthly Absences</h3>
+                        <div class="wrap-table100">
+                            <div class="table100">
+                                <table id="absenceTab">
+                                    <thead>
+                                        <tr class="table100-head">
+                                            <th class="column1">Day</th>
+                                            <th class="column2">Type</th>
+                                            <th class="column3">Hours absent</th>
+                                            <th class="column4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $parser->fillAbsencesTable(); ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div><!-- row -->
-            </div><!-- container -->
+                </div>
+            </div><!-- col 2 -->
+            <div class="col-md-5 col-sm-12">
+                <div class="limiter">
+                    <div class="container-table100">
+                        <h3>Monthly Summary</h3>
+                        <div class="wrap-table100">
+                            <div class="table100">
+                                <table id="summaryTable">
+                                    <thead>
+                                        <tr class="table100-head">
+                                            <th class="column1">Worked</th>
+                                            <th class="column2">Bonus</th>
+                                            <th class="column3">Absent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $parser->fillSummaryTable(); ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- row -->
+    </div>
+    <div class="limiter"> <!-- attendance table -->
+		<div class="container-table100">
+            <h3>Monthly Bonuses</h3>
+			<div class="wrap-table100">
+				<div class="table100">
+					<table id="bonusTab">
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">Day</th>
+								<th class="column2">ID</th>
+								<th class="column3">Bonus Hours</th>
+								<th class="column4">Description</th>
+								<!--<th class="column6">Total</th>-->
+							</tr>
+						</thead>
+						<tbody>
+                            <?php $parser->fillBonusesTable(); ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
-
 	</div><!-- end of attendance table -->
-
-
     <footer class="footer" id="footer">
         <hr/>
         <p class="centrovanie lemovanie">Created by
