@@ -34,7 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "attendance\\": ["src/", "src/ad/", "src/db/", "src/spark/", "src/util/"]
+            "attendance\\": ["src/", "src/ad/", "src/db/", "src/spark/", "src/util/", "src/frontend"]
         }
     }
 }

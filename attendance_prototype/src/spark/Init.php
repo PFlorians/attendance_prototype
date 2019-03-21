@@ -17,7 +17,8 @@
         public function init($request, $response, $args)
         {
             $x=new DBinit($this->dbconn);
-            $x->getAttendanceSummaryOfUser('pflorian', 2);
+            $x->mapperInitializer('pflorian', 2);
+            return $x;//DBInit instance
         }
     }
  ?>

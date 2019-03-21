@@ -6,12 +6,16 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 // Routes
-$app->get('/abc', function ($req, $res, $args)
+$app->get('/abc', function (Request $request, Response $response, array $args)
 {
-    //$l=$this->get('logger');
-    $d=$this->db;
-    var_dump($d);
-    return $d;
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
+    $dbinit=$x->init($request, $response, $args);
+    $parser=new \attendance\AttendanceDataParser();
+    $parser->setBasicMapper($dbinit->getBasicMapper());
+    $parser->setBonusMapper($dbinit->getBonusMapper());
+    $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
+    $parser->setSummaryMapper($dbinit->getSummaryMapper());
+    return $this->renderer->render($response, 'test_index.phtml', ['parser' => $parser]);
 });
 $app->get('/xyz', '\attendance\Init:init');
 
