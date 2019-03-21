@@ -30,8 +30,25 @@ $container['db']=function($cont)
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;*/
 };
+$container['ldap']=function($c)
+{
+    $ldap=$c['settings']['ldap'];
+    $connector=ldap_connect($ldap['controller_hostname'].$ldap['domain'], $ldap['ldap_port']);
+    ldap_set_option($connector, LDAP_OPT_PROTOCOL_VERSION, 3);
+    ldap_set_option($connector, LDAP_OPT_REFERRALS, 0);
+    $bind=ldap_bind($connector, $ldap['login'].'@'.$ldap['domain'], $ldap['password']);
+    if($bind)
+    {
+        return $connector;
+    }
+    else
+    {
+        return null;
+    }
 
+};
+//being used in combination with routes /xyz
 $container['\attendance\Init']=function($cont)
 {
-    return new attendance\Init($cont['logger'], $cont['renderer'], $cont['db']);
+    return new attendance\Init($cont['logger'], $cont['renderer'], $cont['db'], $cont['ldap']);
 };

@@ -29,7 +29,15 @@
         public function fillBonusesTable()
         {
             $attendance=$this->bomapper->getMonthlyBonuses();
-
+            for ($i=0;$i<sizeof($attendance);$i++)
+            {
+                echo "<tr>";
+                for($j=0;$j<sizeof($attendance[$i]);$j++)
+                {
+                    echo "<td class='column".($j+1)."'>".$attendance[$i][$j]."</td>";
+                }
+                echo "</tr>";
+            }
         }
         public function fillAbsencesTable()
         {
