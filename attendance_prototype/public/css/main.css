@@ -101,10 +101,7 @@ iframe {
   width: 100%;
   margin: 0 auto;
 }
-.limiter50 {
-  width: 50%;
-  margin: 0 auto;
-}
+
 .container-table100 {
   width: 100%;
   min-height: 100vh;
