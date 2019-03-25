@@ -21,7 +21,7 @@
 
             $n= '<div class="limiter"> <!-- attendance table -->
                 <div class="container-table100">
-                    <button id="prevMonth" class="btn btn-primary marginRight marginBottom-10"><span class="fas fa-angle-left"></span>Previous Month</button>
+                    <button id="prevMonth" onclick="getPrevMonth()" class="btn btn-primary marginRight marginBottom-10"><span class="fas fa-angle-left"></span>Previous Month</button>
                     <h3 class="marginAuto marginBottom-10 dynamicFont">'.$this->month.' Attendance</h3>
                     <button id="nxtMonth" onclick="getNextMonth()" class="btn btn-primary marginLeft marginBottom-10">Next Month<span class="fas fa-angle-right"></span></button>
                     <div class="wrap-table100">

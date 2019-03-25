@@ -23,3 +23,7 @@ footer.maxHeight
     align-content: flex-end;
     justify-content: center;
 }
+.cursor-text
+{
+    cursor: text;
+}

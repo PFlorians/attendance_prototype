@@ -4,20 +4,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 // Routes
-$app->get('/tst', function(Request $req, Response $res, array $args){
-    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
-    $x->init($req, $res, $args);
-    $dbinit=$x->getDbInitiator();
-    $handler=$dbinit->getDBRequestHandler();
-    $dbinit->map('pflorian', 2);//start from the first
-    //prepare parser so the data is available at the front-end
-    $parser=new \attendance\AttendanceDataParser();
-    $parser->setBasicMapper($dbinit->getBasicMapper());
-    $parser->setBonusMapper($dbinit->getBonusMapper());
-    $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
-    $parser->setSummaryMapper($dbinit->getSummaryMapper());
-    return $this->renderer->render($res, "tables.phtml", ['parser'=>$parser]);
-});
+
 $app->get('/xyz', '\attendance\Init:init');
 
 $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $args){
@@ -33,8 +20,15 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
     $handler->setUname($usr);
     $handler->loadValidMonths();
     $validMonths=$handler->getValidAttMonths();
-
-    $dbinit->map($usr, $validMonths[$val]);//start from the first
+    if($val<0)//out of bounds index exception if not implemented
+    {
+        $val=sizeof($validMonths)-1;
+    }
+    else if($val>sizeof($validMonths)-1)
+    {
+        $val=0;
+    }
+    $dbinit->map($usr, $validMonths[$val]);
     //prepare parser so the data is available at the front-end
     $parser=new \attendance\AttendanceDataParser();
     $parser->setBasicMapper($dbinit->getBasicMapper());
@@ -43,11 +37,14 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
     $parser->setSummaryMapper($dbinit->getSummaryMapper());
     $gene=new \attendance\TableGenerator($parser, $parser->determineMonth($validMonths[$val]));
 
-    $res->getBody()->write($gene->generateTables());
-    return $res;
-    /*return $this->renderer->render($res, "userAttendance.phtml", ['uname' => $usr,
-    'parser' => $parser, 'month'=>$parser->determineMonth($validMonths[0]), 'months'=>$validMonths,
-    'currentMonthIndex'=>0]);*/
+    //$res->getBody()->write($gene->generateTables());
+    $jsonData=json_encode(array('uname' => $usr,
+                'month'=>$parser->determineMonth($validMonths[$val]),
+                'months'=>$validMonths,
+                'currentMonthIndex'=>$val,
+                'html'=>$gene->generateTables()));
+    $newRes=$res->withJson($jsonData);
+    return $newRes;
 });
 
 //site root

@@ -21,10 +21,11 @@
         <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="css/util.css">
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/generic.css">
         <!--===============================================================================================-->
         <script type="text/javascript" src="/node_modules/bootstrap/dist/js/umd/popper.js"></script>
         <!--===============================================================================================-->
-        <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
         <!--===============================================================================================-->
         <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <!--===============================================================================================-->
@@ -39,6 +40,7 @@
         <script type="text/javascript" src="/js/httpAjaxRequestors.js"></script>
         <script type="text/javascript" src="/js/Spark.js"></script>
         <script type="text/javascript" src="/js/main.js"></script>
+        <script type="text/javascript" src="/js/DomEditors.js"></script>
     </head>
     <body>
         <header id="headr">
@@ -47,9 +49,9 @@
                         <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="mainNav">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <button class="btn btn-primary">Edit</button>
+                    <ul id="left-btn-grp" class="navbar-nav mr-auto">
+                        <li id="editation-item" class="nav-item">
+                            <button id="editation" onclick="editationMode()" class="btn btn-primary">Edit</button>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
@@ -73,9 +75,11 @@
             <?php $z=new \attendance\TableGenerator($parser, $month);
                 echo $z->generateTables();?>
         </section>
-        <footer class="footer" id="footer">
+        <div id="tst">
+        </div>
+        <footer class="center" id="footer">
             <hr/>
-            <p class="centrovanie lemovanie">Created by
+            <p class="center">Created by
                 <a href="mailto:patrikflorians@gmail.com" class="remove-deco"> Patrik Florians </a>2018
                 </p>
             <p class="centrovanie lemovanie">Powered by <a class="remove-deco" href="getbootstrap.org">bootstrap</a></p>
