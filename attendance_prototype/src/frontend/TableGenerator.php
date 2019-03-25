@@ -118,7 +118,7 @@
                 </div>
             </div><!-- end of bonuses table -->
             ';
-            echo $n;
+            return $n;
         }
     }
 
