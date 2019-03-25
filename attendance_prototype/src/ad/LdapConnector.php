@@ -20,7 +20,10 @@
         }
         public function searchUser($uname)
         {
-
+            $res=ldap_search($this->ldapConn, "OU=Users,OU=GOC,OU=GIT,DC=grouphc,DC=net",
+            "(&(objectClass=User)(samAccountName=".$uname."))", array("displayName"));
+            $pars=ldap_get_entries($this->ldapConn, $res);
+            return $pars[0]["displayname"][0];
         }
         public function getConnection()
         {

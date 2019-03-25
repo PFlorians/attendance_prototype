@@ -4,11 +4,7 @@ function registerHandlers()
     console.log("registered");
 }
 
-<<<<<<< HEAD
-function getNextMonth()//let's handle the array overflow on backend
-=======
-function getNextMonth()
->>>>>>> 92075f17db7de6550bb105827bd3f0a1c6714ac0
+ function getNextMonth()//let's handle the array overflow on backend
 {
     $.ajax({
         method: 'POST',
@@ -20,7 +16,7 @@ function getNextMonth()
         }
     }
 );
-<<<<<<< HEAD
+
 }
 function getPrevMonth()
 {
@@ -34,11 +30,4 @@ function getPrevMonth()
         }
     }
 );
-=======
-    console.log("triggered");
-}
-function getPrevMonth()
-{
-
->>>>>>> 92075f17db7de6550bb105827bd3f0a1c6714ac0
 }

@@ -33,11 +33,12 @@ $container['db']=function($cont)
 $container['ldap']=function($c)
 {
     $ldap=$c['settings']['ldap'];
-    $connector=ldap_connect('DEUDCFRAN2003.grouphc.net', 3268);
+
+    $connector=ldap_connect($ldap['controller_hostname'].'.'.$ldap['domain'], $ldap['ldap_port']);
     ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
     ldap_set_option($connector, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($connector, LDAP_OPT_REFERRALS, 0);
-    $bind=ldap_bind($connector, 'grpsrvcattendancedev@grouphc.net', 'rxC2F71');
+    $bind=ldap_bind($connector, $ldap['login'].'@'.$ldap['domain'], $ldap['password']);
     if($bind)
     {
         return $connector;

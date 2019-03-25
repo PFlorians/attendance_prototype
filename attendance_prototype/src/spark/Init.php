@@ -25,8 +25,7 @@
             $x=new DBinit($this->dbconn);
             $x->mapperInitializer();
             $this->dbInitiatorInstance=$x;
-            $x=new LdapConnector($this->ldap);
-            $this->ldapInitiatorInstance=$x;
+            $this->ldapInitiatorInstance=new LdapConnector($this->ldap);
         }
         public function getDbInitiator()
         {
