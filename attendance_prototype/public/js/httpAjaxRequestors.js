@@ -4,7 +4,7 @@ function registerHandlers()
     console.log("registered");
 }
 
-function getNextMonth()
+function getNextMonth()//let's handle the array overflow on backend
 {
     $.ajax({
         method: 'POST',
@@ -16,9 +16,17 @@ function getNextMonth()
         }
     }
 );
-    console.log("triggered");
 }
 function getPrevMonth()
 {
-
+    $.ajax({
+        method: 'POST',
+        url: '/month/'+(currentMonthIndex+1),
+        data: {uname: $("#logout").text().trim()},
+        dataType: 'html',
+        success: function (data){
+            $("#tables-content").html(data);
+        }
+    }
+);
 }
