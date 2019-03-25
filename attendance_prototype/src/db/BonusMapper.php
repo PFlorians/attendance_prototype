@@ -32,7 +32,7 @@
                     while($row=sqlsrv_fetch_object($stmt))
                     {
                         //echo $row->day ." ".$row->from." ".$row->until." ".$row->hours_worked_day."<br/>";
-                        $res[]=array($row->day, $row->id, $row->until, $row->bonus_hours, $row->descr);
+                        $res[]=array($row->day, $row->id, $row->bonus_hours, $row->descr);
                     }
                     while(sqlsrv_next_result($stmt))
                     {
