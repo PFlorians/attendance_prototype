@@ -18,22 +18,6 @@ class Spark
 					}
 				});
 		$("#login").popover();
-		/*heurLo();
-		this._car.carusResponsive();
-		carusSlide();
-		adjustPadding();
-		progressBarMeasurement();
-		eventDispatcher(window);*/
-
-		//console.log(this._car);
-		//console.log("resizeEvent: ");
-		//console.log(this.resizeEventHandler);});
-		//registerHandlers(this._car);
-	    /*window.addEventListener('resize', this.resizeEventHandler);
-	    window.addEventListener('scroll', () =>
-	    {
-	    	progressBarMeasurement();
-	    	navbarCorrection();
-	    });*/
+		//registerHandlers();
 	}
 }

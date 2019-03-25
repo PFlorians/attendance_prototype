@@ -8,6 +8,8 @@
         private $renderer;
         private $dbconn;
         private $ldap;
+        private $dbInitiatorInstance;
+        private $ldapInitiatorInstance;
         function __construct($lgr, $rdr, $dbc)
         {
             $this->logger=$lgr;
@@ -22,13 +24,22 @@
             $this->ldap=$ldap;
         }*/
         //init everything here
-        public function init($request, $response, $args)
+        public function init($request, $response, $args)//creates instances of main objects - program components
         {
             $x=new DBinit($this->dbconn);
-            $x->mapperInitializer('pflorian', 2);
+            $x->mapperInitializer();
+            $this->dbInitiatorInstance=$x;
             //$x=new LdapConnector($this->ldap);
             //$x->tstSearch();
-            return $x;//DBInit instance
+        }
+        //getters and setters
+        public function getDbInitiator()
+        {
+            return $this->dbInitiatorInstance;
+        }
+        public function getLdapInitiator()
+        {
+            return $this->ldapInitiatorInstance;
         }
     }
  ?>

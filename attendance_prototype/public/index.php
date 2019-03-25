@@ -16,7 +16,7 @@ require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 // Instantiate the app
-$stgs = require __DIR__ . '/../src/settings.php';//settings matrix is situate here
+$stgs = require __DIR__ . '/../src/settings.php';//settings matrix is situated here
 $app = new \Slim\App($stgs);
 
 // Set up dependencies

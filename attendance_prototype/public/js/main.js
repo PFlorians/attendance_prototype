@@ -1,12 +1,6 @@
-(function ($) {
-    "use strict";
-    $(document).ready(
-        function()
+$(document).ready(
+        () =>
         {
-            
             new Spark();
         }
     );
-
-
-})(jQuery);
