@@ -42,7 +42,8 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
     $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
     $parser->setSummaryMapper($dbinit->getSummaryMapper());
     $gene=new \attendance\TableGenerator($parser, $parser->determineMonth($validMonths[$val]));
-    //$res->getBody()->write(var_dump($gene));
+
+    $res->getBody()->write($gene->generateTables());
     return $res;
     /*return $this->renderer->render($res, "userAttendance.phtml", ['uname' => $usr,
     'parser' => $parser, 'month'=>$parser->determineMonth($validMonths[0]), 'months'=>$validMonths,

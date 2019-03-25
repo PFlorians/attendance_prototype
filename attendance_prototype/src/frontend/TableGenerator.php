@@ -11,7 +11,6 @@
         {
             $this->parser=$par;
             $this->month=$mon;
-            $this->generateTables();
         }
         public function generateTables()
         {
@@ -118,7 +117,7 @@
                 </div>
             </div><!-- end of bonuses table -->
             ';
-            echo $n;
+            return $n;
         }
     }
 

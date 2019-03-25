@@ -70,7 +70,8 @@
             </nav>
         </header>
         <section id="tables-content">
-            <?php new \attendance\TableGenerator($parser, $month); ?>
+            <?php $z=new \attendance\TableGenerator($parser, $month);
+                echo $z->generateTables();?>
         </section>
         <footer class="footer" id="footer">
             <hr/>

@@ -12,6 +12,7 @@ function getNextMonth()
         data: {uname: $("#logout").text().trim()},
         dataType: 'html',
         success: function (data){
+            console.log("signal detected");
             $("#tables-content").html(data);
         }
     }
