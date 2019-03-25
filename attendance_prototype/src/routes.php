@@ -20,7 +20,7 @@ $app->get('/abc', function (Request $request, Response $response, array $args)
 $app->get('/ldap', function (Request $req, Response $resp, array $args)
 {
     $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
-    $x->init();
+    $x->init($req, $resp, $args);
 });
 $app->get('/xyz', '\attendance\Init:init');
 
