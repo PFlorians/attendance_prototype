@@ -20,13 +20,13 @@ return [
                 ]
         ],
         //ldap srvc account credentials
-        'ldap'=>[
+        /*'ldap'=>[
                 'controller_hostname' => 'DEUDCFRAN2002',
                 'ldap_port' => 389,
                 'domain' => 'grouphc.net',
                 'login' => 'grpsrvcattendancedev',
                 'password' => 'rxC2F71'
-        ],
+        ],*/
         // Renderer settings
         'renderer' => [
             'template_path' => __DIR__ . '/../templates/',
