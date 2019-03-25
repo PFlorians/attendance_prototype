@@ -14,7 +14,7 @@
         public function tstSearch()
         {
             $res=ldap_search($this->ldapConn, "OU=Users,OU=GOC,OU=GIT,DC=grouphc,DC=net",
-            "(&(objectClass=User)(samAccountName=cfarkas))", array("mail"));
+            "(&(objectClass=User)(samAccountName=pflorian))", array("displayName"));
             $pars=ldap_get_entries($this->ldapConn, $res);
             var_dump($pars);
         }

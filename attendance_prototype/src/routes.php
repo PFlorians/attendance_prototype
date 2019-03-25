@@ -6,20 +6,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 // Routes
-$app->get('/tst', function(Request $req, Response $res, array $args){
-    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
-    $x->init($req, $res, $args);
-    $dbinit=$x->getDbInitiator();
-    $handler=$dbinit->getDBRequestHandler();
-    $dbinit->map('pflorian', 2);//start from the first
-    //prepare parser so the data is available at the front-end
-    $parser=new \attendance\AttendanceDataParser();
-    $parser->setBasicMapper($dbinit->getBasicMapper());
-    $parser->setBonusMapper($dbinit->getBonusMapper());
-    $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
-    $parser->setSummaryMapper($dbinit->getSummaryMapper());
-    return $this->renderer->render($res, "tables.phtml", ['parser'=>$parser]);
-});
+
 $app->get('/xyz', '\attendance\Init:init');
 
 $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $args){
@@ -27,7 +14,7 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
     $usr=filter_var($data['uname'], FILTER_SANITIZE_STRING);
 
     $val=(int)$args['nxtMonth'];
-    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
     $x->init($req, $res, $args);
 
     $dbinit=$x->getDbInitiator();
@@ -60,7 +47,7 @@ $app->post('/', function(Request $req, Response $res, array $args){
     $frmData['uname']=filter_var($data['uname'], FILTER_SANITIZE_STRING);
     $frmData['pass']=filter_var($data['pwd'], FILTER_SANITIZE_STRING);
     //call authentication here
-    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
     $x->init($req, $res, $args);
     $dbinit=$x->getDbInitiator();
     $handler=$dbinit->getDBRequestHandler();
@@ -96,7 +83,7 @@ $app->post('/', function(Request $req, Response $res, array $args){
 
 $app->get('/', function (Request $request, Response $response, array $args) {
     // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
+    //$this->logger->info("Slim-Skeleton '/' route");
     $info=new \attendance\Util();
     // Render index view
     return $this->renderer->render($response, 'index.phtml', ['info' => $info]);
@@ -105,5 +92,7 @@ $app->get('/ldap', function (Request $req, Response $resp, array $args)
 {
     $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
     $x->init($req, $resp, $args);
+    $ldp=$x->getLdapInitiator();
+    $ldp->tstSearch();
 });
 ?>

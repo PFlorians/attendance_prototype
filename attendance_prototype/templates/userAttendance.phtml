@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Attendance</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <!--===============================================================================================-->
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/node_modules/animate.css/animate.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/node_modules/select2/dist/css/select2.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/node_modules/perfect-scrollbar/css/perfect-scrollbar.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="css/util.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="/node_modules/bootstrap/dist/js/umd/popper.js"></script>
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="/node_modules/select2/dist/js/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <!-- scalar JS/PHP data -->
+        <script type="text/javascript">
+            var months=<?php echo json_encode($months); ?>;
+            var currentMonthIndex=<?php echo $currentMonthIndex; ?>;
+        </script>
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="/js/httpAjaxRequestors.js"></script>
+        <script type="text/javascript" src="/js/Spark.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script>
+    </head>
+    <body>
+        <header id="headr">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="hlavicka">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="mainNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <button class="btn btn-primary">Edit</button>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" id="logout" data-container="body" data-toggle="popover" title="Log Out?"
+                            data-placement="bottom">
+                                <?php echo $uname ?> <span class="fas fa-caret-down"></span></a>
+                        </li>
+                    </ul>
+                    <div id="login-form" class="d-none">
+                        <form class="navbar-form" method="post" action="/logout">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Log out"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <section id="tables-content">
+            <?php $gen=new \attendance\TableGenerator($parser, $month);
+            echo $gen->generateTables();?>
+        </section>
+        <footer class="footer" id="footer">
+            <hr/>
+            <p class="centrovanie lemovanie">Created by
+                <a href="mailto:patrikflorians@gmail.com" class="remove-deco"> Patrik Florians </a>2018
+                </p>
+            <p class="centrovanie lemovanie">Powered by <a class="remove-deco" href="getbootstrap.org">bootstrap</a></p>
+        </footer>
+    </body>
+</html>
