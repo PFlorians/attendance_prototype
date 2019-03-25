@@ -10,13 +10,20 @@
         private $ldap;
         private $dbInitiatorInstance;
         private $ldapInitiatorInstance;
+
         function __construct($lgr, $rdr, $dbc, $ldap)
         {
             $this->logger=$lgr;
             $this->renderer=$rdr;
             $this->dbconn=$dbc;
-            $this->ldap=$ldap;
         }
+        /*function __construct($lgr, $rdr, $dbc, $ldap)
+        {
+            $this->logger=$lgr;
+            $this->renderer=$rdr;
+            $this->dbconn=$dbc;
+            $this->ldap=$ldap;
+        }*/
         //init everything here
         public function init($request, $response, $args)//creates instances of main objects - program components
         {
