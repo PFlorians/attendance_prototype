@@ -1,5 +1,7 @@
 <?php
 
+/**use Slim\Http\Request;
+use Slim\Http\Response;**/
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -90,11 +92,4 @@ $app->post('/', function(Request $req, Response $res, array $args){
     }
 });
 
-$app->get('/', function (Request $request, Response $response, array $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
-    $info=new \attendance\Util();
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', ['info' => $info]);
-});
 ?>
