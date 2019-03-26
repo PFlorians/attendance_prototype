@@ -4,7 +4,7 @@ function registerHandlers()
     console.log("registered");
 }
 
-function getNextMonth()
+function getNextMonth()//let's handle the array overflow on backend
 {
     $.ajax({
         method: 'POST',

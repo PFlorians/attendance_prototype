@@ -46,7 +46,6 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
     $newRes=$res->withJson($jsonData);
     return $newRes;
 });
-
 //site root
 $app->post('/', function(Request $req, Response $res, array $args){
     $data=$req->getParsedBody();
@@ -88,13 +87,18 @@ $app->post('/', function(Request $req, Response $res, array $args){
     {
         // code...
     }
+    return $this->renderer->render($response, 'test_index.phtml', ['parser' => $parser]);
 });
-
 $app->get('/', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route");
     $info=new \attendance\Util();
     // Render index view
     return $this->renderer->render($response, 'index.phtml', ['info' => $info]);
+});
+$app->get('/ldap', function (Request $req, Response $resp, array $args)
+{
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
+    $x->init();
 });
 ?>

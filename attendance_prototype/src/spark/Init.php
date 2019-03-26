@@ -10,26 +10,20 @@
         private $ldap;
         private $dbInitiatorInstance;
         private $ldapInitiatorInstance;
-        function __construct($lgr, $rdr, $dbc)
-        {
-            $this->logger=$lgr;
-            $this->renderer=$rdr;
-            $this->dbconn=$dbc;
-        }
-        /*function __construct($lgr, $rdr, $dbc, $ldap)
+        function __construct($lgr, $rdr, $dbc, $ldap)
         {
             $this->logger=$lgr;
             $this->renderer=$rdr;
             $this->dbconn=$dbc;
             $this->ldap=$ldap;
-        }*/
+        }
         //init everything here
         public function init($request, $response, $args)//creates instances of main objects - program components
         {
             $x=new DBinit($this->dbconn);
             $x->mapperInitializer();
             $this->dbInitiatorInstance=$x;
-            //$x=new LdapConnector($this->ldap);
+            $x=new LdapConnector($this->ldap);
             //$x->tstSearch();
         }
         //getters and setters
