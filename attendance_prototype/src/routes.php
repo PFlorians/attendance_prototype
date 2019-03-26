@@ -51,33 +51,47 @@ $app->post('/', function(Request $req, Response $res, array $args){
     $ldapinit=$x->getLdapInitiator();
     $handler=$dbinit->getDBRequestHandler();
     //db user authentication here
-    if($handler->userInDb($frmData['uname'])==true) //user exists, authentication success
+    try
     {
-        if(sizeof($handler->getValidAttMonths())>0)//data exists, load forst available month
+        $user=$ldapinit->login(trim($frmData['uname']), trim($frmData['pass']));
+    } catch (Exception $e)
+    {
+        throw new Exception($e);
+    }
+    if(isset($user))
+    {
+        if($handler->userInDb($frmData['uname'])==true) //user exists, authentication success
         {
-            //first available month may not be the first calendar month
-            $validMonths=$handler->getValidAttMonths();
-            $dbinit->map($frmData['uname'], $validMonths[0]);//start from the first
-            //prepare parser so the data is available at the front-end
-            $parser=new \attendance\AttendanceDataParser();
-            $parser->setBasicMapper($dbinit->getBasicMapper());
-            $parser->setBonusMapper($dbinit->getBonusMapper());
-            $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
-            $parser->setSummaryMapper($dbinit->getSummaryMapper());
+            if(sizeof($handler->getValidAttMonths())>0)//data exists, load forst available month
+            {
+                //first available month may not be the first calendar month
+                $validMonths=$handler->getValidAttMonths();
+                $dbinit->map($frmData['uname'], $validMonths[0]);//start from the first
+                //prepare parser so the data is available at the front-end
+                $parser=new \attendance\AttendanceDataParser();
+                $parser->setBasicMapper($dbinit->getBasicMapper());
+                $parser->setBonusMapper($dbinit->getBonusMapper());
+                $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
+                $parser->setSummaryMapper($dbinit->getSummaryMapper());
 
-            return $this->renderer->render($res, "userAttendance.phtml", ['uname' => $frmData['uname'],
-            'parser' => $parser, 'month'=>$parser->determineMonth($validMonths[0]), 'months'=>$validMonths,
-            'currentMonthIndex'=>0]);
+                return $this->renderer->render($res, "userAttendance.phtml", ['uname' => $user,
+                'parser' => $parser, 'month'=>$parser->determineMonth($validMonths[0]), 'months'=>$validMonths,
+                'currentMonthIndex'=>0]);
+            }
+            else//tere is no data! -> create a blank new attendance
+            {
+
+            }
         }
-        else//tere is no data!
+        else //user not in DB -> webpage to register user in attendance system
         {
-
+            // code...
         }
     }
-    else //user not in DB -> webpage to register user in attendance system
-    {
-        // code...
+    else {
+        throw new Exception("Error! Invalid credentials: ".var_dump($user));
     }
+
 });
 
 $app->get('/', function (Request $request, Response $response, array $args) {
@@ -93,5 +107,7 @@ $app->get('/ldap', function (Request $req, Response $resp, array $args)
     $x->init($req, $resp, $args);
     $ldp=$x->getLdapInitiator();
     $ldp->tstSearch();
+    echo "<br/>";
+    echo $ldp->searchUser('pflorian');
 });
 ?>

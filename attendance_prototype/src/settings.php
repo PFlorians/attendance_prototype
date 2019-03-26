@@ -23,9 +23,7 @@ return [
         'ldap'=>[
                 'controller_hostname' => 'DEUDCFRAN2002',
                 'ldap_port' => 389,
-                'domain' => 'grouphc.net',
-                'login' => 'grpsrvcattendancedev',
-                'password' => 'rxC2F71'
+                'domain' => 'grouphc.net'
         ],
         // Renderer settings
         'renderer' => [

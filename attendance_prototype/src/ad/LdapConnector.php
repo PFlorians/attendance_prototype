@@ -5,11 +5,11 @@
 
     class LdapConnector
     {
-        private $ldapConn;
+        private $ldap;
 
-        function __construct($conn)
+        function __construct($ldp)
         {
-            $this->ldapConn=$conn;
+            $this->ldap=$ldp;
         }
         public function tstSearch()
         {
@@ -24,6 +24,25 @@
             "(&(objectClass=User)(samAccountName=".$uname."))", array("displayName"));
             $pars=ldap_get_entries($this->ldapConn, $res);
             return $pars[0]["displayname"][0];
+        }
+        public function login($uname, $pwd)
+        {
+            ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
+            ldap_set_option($this->ldap['connection'], LDAP_OPT_PROTOCOL_VERSION, 3);
+            ldap_set_option($this->ldap['connection'], LDAP_OPT_REFERRALS, 0);
+            $bind=ldap_bind($this->ldap['connection'], $uname.'@'.$this->ldap['domain'], $pwd);
+            $res=ldap_search($this->ldap['connection'], "OU=Users,OU=GOC,OU=GIT,DC=grouphc,DC=net",
+            "(&(objectClass=User)(samAccountName=".$uname."))", array("displayName"));
+            $pars=ldap_get_entries($this->ldap['connection'], $res);
+
+            if($bind)
+            {
+                return $pars[0]["displayname"][0];
+            }
+            else
+            {
+                throw new Exception("chyba logovania: ".$uname.'@'.$this->ldap['domain']." pwd: ".$pwd);
+            }
         }
         public function getConnection()
         {

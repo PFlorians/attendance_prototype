@@ -34,14 +34,11 @@ $container['ldap']=function($c)
 {
     $ldap=$c['settings']['ldap'];
 
-    $connector=ldap_connect($ldap['controller_hostname'].'.'.$ldap['domain'], $ldap['ldap_port']);
-    ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
-    ldap_set_option($connector, LDAP_OPT_PROTOCOL_VERSION, 3);
-    ldap_set_option($connector, LDAP_OPT_REFERRALS, 0);
-    $bind=ldap_bind($connector, $ldap['login'].'@'.$ldap['domain'], $ldap['password']);
-    if($bind)
+    $connector=ldap_connect($ldap['controller_hostname'], $ldap['ldap_port']);
+    $ldapData = array("connection" => $connector, "domain"=>$ldap['domain']);
+    if(isset($connector))
     {
-        return $connector;
+        return $ldapData;
     }
     else
     {
