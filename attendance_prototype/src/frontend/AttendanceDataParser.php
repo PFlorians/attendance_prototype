@@ -13,20 +13,31 @@
         {
             ;
         }
-        public function fillAttendanceTable()//regular attendance data
+        public function fillAttendanceTable()//regular attendance data RETURNS ARRAY
         {
             $attendance=$this->bmapper->getAttendance();
             $tdata="";
+            $data;
+            $recordIds=[];
+            $x=1;
             for ($i=0;$i<sizeof($attendance);$i++)
             {
                 $tdata=$tdata."<tr>";
                 for($j=0;$j<sizeof($attendance[$i]);$j++)
                 {
-                    $tdata=$tdata."<td class='column".($j+1)."'>".$attendance[$i][$j]."</td>";
+                    if($j==0)//record ID is secretely passed to table
+                    {
+                        $recordIds[]=$attendance[$i][$j];
+                        $x++;
+                    }
+                    else
+                    {
+                        $tdata=$tdata."<td class='column".($j)."' id='col_".$j."_row_".$i."'>".$attendance[$i][$j]."</td>";
+                    }
                 }
                 $tdata=$tdata."</tr>";
             }
-            return $tdata;
+            return array("ids"=>$recordIds, "data"=>$tdata);
         }
         public function fillBonusesTable()
         {

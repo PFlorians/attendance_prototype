@@ -14,7 +14,7 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
     $usr=filter_var($data['uname'], FILTER_SANITIZE_STRING);
 
     $val=(int)$args['nxtMonth'];
-    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db, null);
     $x->init($req, $res, $args);
 
     $dbinit=$x->getDbInitiator();
@@ -38,13 +38,16 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
     $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
     $parser->setSummaryMapper($dbinit->getSummaryMapper());
     $gene=new \attendance\TableGenerator($parser, $parser->determineMonth($validMonths[$val]));
-
+    $geneData=$gene->generateTables();
+    $tdata=$geneData["data"];
+    $ids=$geneData["ids"];
     //$res->getBody()->write($gene->generateTables());
     $jsonData=json_encode(array('uname' => $usr,
                 'month'=>$parser->determineMonth($validMonths[$val]),
                 'months'=>$validMonths,
                 'currentMonthIndex'=>$val,
-                'html'=>$gene->generateTables()));
+                'html'=>$tdata,
+                'ids'=>$ids));
     $newRes=$res->withJson($jsonData);
     return $newRes;
 });
@@ -58,7 +61,7 @@ $app->post('/', function(Request $req, Response $res, array $args){
     $frmData['uname']=filter_var($data['uname'], FILTER_SANITIZE_STRING);
     $frmData['pass']=filter_var($data['pwd'], FILTER_SANITIZE_STRING);
     //call authentication here
-    $x=new \attendance\Init($this->logger, $this->renderer, $this->db);
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db, null);
     $x->init($req, $res, $args);
     $dbinit=$x->getDbInitiator();
     $handler=$dbinit->getDBRequestHandler();
@@ -76,9 +79,11 @@ $app->post('/', function(Request $req, Response $res, array $args){
             $parser->setBonusMapper($dbinit->getBonusMapper());
             $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
             $parser->setSummaryMapper($dbinit->getSummaryMapper());
+            $tgen=new \attendance\TableGenerator($parser, $parser->determineMonth($validMonths[0]));
+            $gene=$tgen->generateTables();
 
             return $this->renderer->render($res, "userAttendance.phtml", ['uname' => $frmData['uname'],
-            'parser' => $parser, 'month'=>$parser->determineMonth($validMonths[0]), 'months'=>$validMonths,
+            'tdata' => $gene["data"], 'ids'=>$gene["ids"], 'month'=>$parser->determineMonth($validMonths[0]), 'months'=>$validMonths,
             'currentMonthIndex'=>0]);
         }
         else//tere is no data!
@@ -91,5 +96,12 @@ $app->post('/', function(Request $req, Response $res, array $args){
         // code...
     }
 });
-
+$app->get('/', function (Request $request, Response $response, array $args)
+{
+    // Sample log message
+    $this->logger->info("Slim-Skeleton '/' route");
+    $info=new \attendance\Util();
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', ['info' => $info]);
+});
 ?>

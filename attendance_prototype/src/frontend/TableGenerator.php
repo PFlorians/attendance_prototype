@@ -37,7 +37,7 @@
                                         <!--<th class="column6">Total</th>-->
                                     </tr>
                                 </thead>
-                                <tbody>'.$att.'
+                                <tbody>'.$att["data"].'
                                 </tbody>
                             </table>
                         </div>
@@ -117,7 +117,7 @@
                 </div>
             </div><!-- end of bonuses table -->
             ';
-            return $n;
+            return array("data"=>$n, "ids"=>$att["ids"]);
         }
     }
 

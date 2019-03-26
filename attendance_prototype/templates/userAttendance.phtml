@@ -35,6 +35,7 @@
         <script type="text/javascript">
             var months=<?php echo json_encode($months); ?>;
             var currentMonthIndex=<?php echo $currentMonthIndex; ?>;
+            var record_ids=<?php echo json_encode($ids); ?>;
         </script>
         <!--===============================================================================================-->
         <script type="text/javascript" src="/js/httpAjaxRequestors.js"></script>
@@ -72,8 +73,7 @@
             </nav>
         </header>
         <section id="tables-content">
-            <?php $z=new \attendance\TableGenerator($parser, $month);
-                echo $z->generateTables();?>
+            <?php echo $tdata;?>
         </section>
         <div id="tst">
         </div>
