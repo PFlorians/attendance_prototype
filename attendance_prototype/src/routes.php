@@ -48,6 +48,7 @@ $app->post('/', function(Request $req, Response $res, array $args){
     $x=new \attendance\Init($this->logger, $this->renderer, $this->db, $this->ldap);
     $x->init($req, $res, $args);
     $dbinit=$x->getDbInitiator();
+    $ldapinit=$x->getLdapInitiator();
     $handler=$dbinit->getDBRequestHandler();
     //db user authentication here
     if($handler->userInDb($frmData['uname'])==true) //user exists, authentication success
