@@ -10,6 +10,7 @@
         private $conn;//connection
         private $uname;
         private $validMonths;
+        private $shiftTypes;
 
         function __construct($con)
         {
@@ -56,6 +57,7 @@
                         if($res[0][0]==1)
                         {
                             $this->loadValidMonths();
+                            $this->loadShiftTypes();
                             return true;//user exists
                         }
                         else
@@ -70,17 +72,54 @@
                 }
             }
         }
-        public function bindToUser($usr)
+        //this method retrieves all shift types for frontend
+        public function loadShiftTypes()
         {
-            $this->uname=$usr;
             $sqlQryRes="";//error variable
             $paramsArray=array(
-                array(&$uname, SQLSRV_PARAM_IN),
-                array(&$monthAtt, SQLSRV_PARAM_IN),
                 array(&$sqlQryRes, SQLSRV_PARAM_OUT)
             );
             $res=[];
-
+            $qry="exec getShiftTypes @errMsg = ?";
+            $stmt = sqlsrv_prepare($this->conn, $qry, $paramsArray);
+            if($stmt===false)
+            {
+                die(print_r(sqlsrv_errors(), true));
+            }
+            else
+            {
+                if(sqlsrv_execute($stmt))
+                {
+                    while($row=sqlsrv_fetch_object($stmt))
+                    {
+                        //echo $row->day ." ".$row->from." ".$row->until." ".$row->hours_worked_day."<br/>";
+                        $res[]=array($row->type);
+                    }
+                    while(sqlsrv_next_result($stmt))
+                    {
+                        ;
+                    }//needs to be called after fetch
+                    if($sqlQryRes!="")//query returned error, fatal
+                    {
+                        die(print_r($sqlQryRes, true));
+                    }
+                    else
+                    {
+                        for($i=0;$i<sizeof($res);$i++)
+                        {
+                            for($j=0;$j<sizeof($res[$i]);$j++)
+                            {
+                                $this->shiftTypes[]=$res[$i][$j];
+                            }
+                        }
+                        //we can start working with data only if there are data to work with
+                    }
+                }
+                else//execution failure
+                {
+                    die(print_r(sqlsrv_errors(), true));
+                }
+            }
         }
         public function loadValidMonths()
         {
@@ -136,6 +175,10 @@
         public function getValidAttMonths()
         {
             return $this->validMonths;
+        }
+        public function getShifts()
+        {
+            return $this->shiftTypes;
         }
         //setters
         public function setUname($uname)

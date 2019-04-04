@@ -47,7 +47,8 @@ $app->post('/month/{nxtMonth}', function(Request $req, Response $res, array $arg
                 'months'=>$validMonths,
                 'currentMonthIndex'=>$val,
                 'html'=>$tdata,
-                'ids'=>$ids));
+                'ids'=>$ids,
+                'shifts'=>$handler->getShifts()));
     $newRes=$res->withJson($jsonData);
     return $newRes;
 });
@@ -84,7 +85,7 @@ $app->post('/', function(Request $req, Response $res, array $args){
 
             return $this->renderer->render($res, "userAttendance.phtml", ['uname' => $frmData['uname'],
             'tdata' => $gene["data"], 'ids'=>$gene["ids"], 'month'=>$parser->determineMonth($validMonths[0]), 'months'=>$validMonths,
-            'currentMonthIndex'=>0]);
+            'currentMonthIndex'=>0, 'shifts'=>$handler->getShifts()]);
         }
         else//tere is no data!
         {

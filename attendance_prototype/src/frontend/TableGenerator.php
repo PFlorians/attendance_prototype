@@ -22,7 +22,7 @@
             $n= '<div class="limiter"> <!-- attendance table -->
                 <div class="container-table100">
                     <button id="prevMonth" onclick="getPrevMonth()" class="btn btn-primary marginRight marginBottom-10"><span class="fas fa-angle-left"></span>Previous Month</button>
-                    <h3 class="marginAuto marginBottom-10 dynamicFont">'.$this->month.' Attendance</h3>
+                    <h3 id="att" class="marginAuto marginBottom-10 dynamicFont clr">'.$this->month.' Attendance</h3>
                     <button id="nxtMonth" onclick="getNextMonth()" class="btn btn-primary marginLeft marginBottom-10">Next Month<span class="fas fa-angle-right"></span></button>
                     <div class="wrap-table100">
                         <div class="table100">
@@ -49,7 +49,7 @@
                     <div class="col-md-7 col-sm-12">
                         <div class="limiter">
                             <div class="container-table100">
-                                <h3>Monthly Absences</h3>
+                                <h3 class="clr">Monthly Absences</h3>
                                 <div class="wrap-table100">
                                     <div class="table100">
                                         <table id="absenceTab">
@@ -72,7 +72,7 @@
                     <div class="col-md-5 col-sm-12">
                         <div class="limiter">
                             <div class="container-table100">
-                                <h3>Monthly Summary</h3>
+                                <h3 class="clr">Monthly Summary</h3>
                                 <div class="wrap-table100">
                                     <div class="table100">
                                         <table id="summaryTable">
@@ -96,7 +96,7 @@
             </div>
             <div class="limiter"> <!-- bonuses table -->
                 <div class="container-table100">
-                    <h3>Monthly Bonuses</h3>
+                    <h3 class="clr">Monthly Bonuses</h3>
                     <div class="wrap-table100">
                         <div class="table100">
                             <table id="bonusTab">

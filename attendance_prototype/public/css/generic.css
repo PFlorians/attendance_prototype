@@ -27,3 +27,19 @@ footer.maxHeight
 {
     cursor: text;
 }
+.limit
+{
+    width: 15vw;
+    height: 5vh;
+    background: url(../images/logo.png);
+    background-size: contain;
+}
+h3.clr
+{
+    color: #00692d;
+    font-weight: bold;
+}
+button.margin-10
+{
+    margin: 10;
+}

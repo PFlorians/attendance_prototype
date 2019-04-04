@@ -36,9 +36,12 @@
             var months=<?php echo json_encode($months); ?>;
             var currentMonthIndex=<?php echo $currentMonthIndex; ?>;
             var record_ids=<?php echo json_encode($ids); ?>;
+            var shiftTypes=<?php echo json_encode($shifts); ?>;
+            var ChangeBuffer =[];
         </script>
         <!--===============================================================================================-->
         <script type="text/javascript" src="/js/httpAjaxRequestors.js"></script>
+        <script type="text/javascript" src="/js/ChangeRow.js"></script>
         <script type="text/javascript" src="/js/Spark.js"></script>
         <script type="text/javascript" src="/js/main.js"></script>
         <script type="text/javascript" src="/js/DomEditors.js"></script>
@@ -46,6 +49,9 @@
     <body>
         <header id="headr">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="hlavicka">
+                <a class="navbar-brand" href="#">
+                    <img class="limit" src="images/logo.png" alt="logo"/>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                 </button>

@@ -17,7 +17,7 @@ class Spark
 						return $("#login-form").html();
 					}
 				});
-		$("#login").popover();
+		//$("#login").popover();
 		//registerHandlers();
 	}
 }

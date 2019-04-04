@@ -32,7 +32,8 @@
                     }
                     else
                     {
-                        $tdata=$tdata."<td class='column".($j)."' id='col_".$j."_row_".$i."'>".$attendance[$i][$j]."</td>";
+                        $tdata=$tdata."<td class='column".($j)."' id='col_".($j)."_row_".($i)."'>".
+                        $attendance[$i][$j]."</td>";
                     }
                 }
                 $tdata=$tdata."</tr>";
