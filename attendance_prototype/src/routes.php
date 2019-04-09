@@ -106,10 +106,40 @@ $app->post('/saveChanges', function(Request $req, Response $res, array $args){
     $dbinit=$x->getDbInitiator();
     $handler=$dbinit->getDBRequestHandler();
     $handler->setUname($usr);
+    //var_dump($data['data']);
+    //echo "<br/>";
+    foreach ($data['data'] as $key => $val)
+    {
+        //var_dump($key);
+        //echo "<br/>";
+        if(is_array($val))
+        {
+            $handler->performUpdate($val["id"], $val["column2"], $val["column3"], $val["shift"]);
+        }
+    }
+    $parser=new \attendance\AttendanceDataParser();
+    $parser->setBasicMapper($dbinit->getBasicMapper());
+    $parser->setBonusMapper($dbinit->getBonusMapper());
+    $parser->setAbsenceMapper($dbinit->getAbsenceMapper());
+    $parser->setSummaryMapper($dbinit->getSummaryMapper());
+    $gene=new \attendance\TableGenerator($parser, $parser->determineMonth($validMonths[$val]));
+    $geneData=$gene->generateTables();
+    $tdata=$geneData["data"];
+    $ids=$geneData["ids"];
+    //$res->getBody()->write($gene->generateTables());
+    $jsonData=json_encode(array('uname' => $usr,
+                'month'=>$parser->determineMonth($validMonths[$val]),
+                'months'=>$validMonths,
+                'currentMonthIndex'=>$val,
+                'html'=>$tdata,
+                'ids'=>$ids,
+                'shifts'=>$handler->getShifts()));
+    $newRes=$res->withJson($jsonData);
+    return $newRes;
     /*$jsonData=json_encode(array('res'=>var_dump(json_decode($data))
     ));
     $newres=$res->withJson($jsonData);*/
-    //return $res;
+    return $res;
 });
 $app->get('/', function (Request $request, Response $response, array $args)
 {

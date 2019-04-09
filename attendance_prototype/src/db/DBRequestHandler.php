@@ -171,6 +171,68 @@
                 }
             }
         }
+        public function performUpdate($id, $arrival='', $departure='', $shift='')
+        {
+            $sqlQryRes="";//error variable
+            $typeOfChange=1;
+            $arrive=$arrival;
+            $depart=$departure;
+            $sh=$shift;
+            $record_id=(int)$id;
+            $paramsArray=array(
+                array(&$record_id, SQLSRV_PARAM_IN),
+                array(&$arrive, SQLSRV_PARAM_IN),
+                array(&$depart, SQLSRV_PARAM_IN),
+                array(&$sh, SQLSRV_PARAM_IN),
+                array(&$typeOfChange, SQLSRV_PARAM_IN),
+                array(&$sqlQryRes, SQLSRV_PARAM_OUT)
+            );
+            $res=[];
+            $qry="exec updateAttRecord @recId=?, @timeStringArrive=?, @timeStringDepart=?, @shift=?, @typeOfUpdate=?, @errMsg=?;";
+            if($arrival==='' && $departure==='' && $shift==='')//we have no data! we cannot work with this
+            {
+                die("Error, no data provided to arguments: arrival, departure, shift in method performUpdate");
+            }
+            $stmt = sqlsrv_prepare($this->conn, $qry, $paramsArray);
+            if($stmt===false)//error on preparation
+            {
+                die(print_r(sqlsrv_errors(), true));
+            }
+            else
+            {
+                if(sqlsrv_execute($stmt))
+                {
+                    while($row=sqlsrv_fetch_object($stmt))
+                    {
+                        //echo $row->day ." ".$row->from." ".$row->until." ".$row->hours_worked_day."<br/>";
+                        $res[]=array($row->month);
+                    }
+                    while(sqlsrv_next_result($stmt))
+                    {
+                        ;
+                    }//needs to be called after fetch
+                    if($sqlQryRes!="")//query returned error, fatal
+                    {
+                        die(print_r($sqlQryRes, true));
+                    }
+                    else
+                    {
+                        for($i=0;$i<sizeof($res);$i++)
+                        {
+                            for($j=0;$j<sizeof($res[$i]);$j++)
+                            {
+                                $this->validMonths[]=$res[$i][$j];
+                            }
+                        }
+                        //we can start working with data only if there are data to work with
+                    }
+                }
+                else//execution failure
+                {
+                    die(print_r(sqlsrv_errors(), true));
+                }
+            }
+        }
         //getters and setters
         public function getValidAttMonths()
         {

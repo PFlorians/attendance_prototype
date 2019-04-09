@@ -23,8 +23,21 @@ $container['db']=function($cont)
 {
     $db=$cont['settings']['db'];
     //sql server
-    $conn = sqlsrv_connect($db['host'], $db['conn_string']);
-    return $conn;//return connection to database
+    try
+    {
+        $conn = sqlsrv_connect($db['host'], $db['conn_string']);
+        if($conn)
+        {
+            return $conn;
+        }
+        else {
+            throw new Exception("Error unable to connect to SQLSRV database");
+        }
+    }
+    catch (\Exception $e)
+    {
+            die("Exception while trying to connect to DB ".$e);
+    }
     /*$pdo=new PDO('mysql:host='.$db['host'].';dbname='.$db['dbname'], $db['user'], $db['password']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//throw exception on error
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

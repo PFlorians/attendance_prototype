@@ -6,7 +6,7 @@ return [
         'mode' => 'development',
         //databse connection for srvcattendance
         'db'=>[
-            'host'=>'SPARROW\\SQLEXPRESS',
+            'host'=>'CZECLBRNPFL1\SQLEXPRESS',
             'conn_string' => [
                 'Database' => 'attendance_dev',//,
                 'ReturnDatesAsStrings' => true
@@ -20,7 +20,7 @@ return [
                 'controller_hostname' => 'DEUDCFRAN2002',
                 'ldap_port' => 389,
                 'domain' => 'grouphc.net',
-                'login' => 'ngrpsrvcattendancedev',
+                'login' => 'grpsrvcattendancedev',
                 'password' => 'rxC2F71'
         ],
         // Renderer settings

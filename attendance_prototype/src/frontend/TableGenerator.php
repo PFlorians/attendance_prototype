@@ -96,8 +96,8 @@
             </div>
             <div class="limiter"> <!-- bonuses table -->
                 <div class="container-table100">
-                    <h3 class="clr">Monthly Bonuses</h3>
                     <div class="wrap-table100">
+                        <h3 class="clr center">Monthly Bonuses</h3>
                         <div class="table100">
                             <table id="bonusTab">
                                 <thead>

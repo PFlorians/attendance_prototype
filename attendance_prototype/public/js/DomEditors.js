@@ -17,6 +17,10 @@ function editationMode()
     {
         $("#attendanceTab > tbody > tr > #"+ids[i]).replaceWith("<td class='column5' id="+ids[i]+">"+"<select>"+opts+"</select></td>");
     }
+    if(typeof ChangeBuffer === "undefined")
+    {
+        ChangeBuffer = new Object();
+    }
     $("#attendanceTab > tbody > tr > td.column2").attr({contenteditable: "true"});
     $("#attendanceTab > tbody > tr > td.column3").attr({contenteditable: "true"});
     //$("#attendanceTab > tbody > tr > td.column5").replaceWith("<td class='column5'><select>"+opts+"</select></td>");
@@ -30,15 +34,15 @@ function editationMode()
         {
             $(elem.target).popover("dispose");
             //console.log("case 0");
-            if(typeof ChangeBuffer[row[row.length-1].toString()]==='undefined')//check if already initialized
+            if(typeof ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]==='undefined')//check if already initialized
             {
-                ChangeBuffer[row[row.length-1].toString()]=new ChangeRow({id: parseInt(row[row.length-1]), col2: elem.target.innerHTML.trim()});
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]=new ChangeRow({id: record_ids[parseInt(row[row.length-1])], col2: elem.target.innerHTML.trim()});
             //    console.log("first case 1");
             }
             else //otherwise no need to instantiate just alter already existing object
             {
-                ChangeBuffer[row[row.length-1].toString()].id=parseInt(row[row.length-1]);
-                ChangeBuffer[row[row.length-1].toString()].column2=elem.target.innerHTML.trim();
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].id=record_ids[parseInt(row[row.length-1])];
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].column2=elem.target.innerHTML.trim();
             //    console.log("second case 1");
             }
             console.log(ChangeBuffer);
@@ -61,15 +65,15 @@ function editationMode()
         if(rgx.test(x))
         {
             $(elem.target).popover("dispose");
-            if(typeof ChangeBuffer[row[row.length-1].toString()]==='undefined')//check if already initialized
+            if(typeof ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]==='undefined')//check if already initialized
             {
-                ChangeBuffer[row[row.length-1].toString()]=new ChangeRow({id: parseInt(row[row.length-1]), col2: elem.target.innerHTML.trim()});
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]=new ChangeRow({id: record_ids[parseInt(row[row.length-1])], col2: elem.target.innerHTML.trim()});
             //    console.log("first case 2");
             }
             else //otherwise no need to instantiate just alter already existing object
             {
-                ChangeBuffer[row[row.length-1].toString()].id=parseInt(row[row.length-1]);
-                ChangeBuffer[row[row.length-1].toString()].column2=elem.target.innerHTML.trim();
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].id=record_ids[parseInt(row[row.length-1])]
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].column2=elem.target.innerHTML.trim();
             //    console.log("second case 2");
             }
             console.log(ChangeBuffer);
@@ -93,15 +97,15 @@ function editationMode()
         {
             $(elem.target).popover("dispose");
             //console.log("case 0");
-            if(typeof ChangeBuffer[row[row.length-1].toString()]==='undefined')//check if already initialized
+            if(typeof ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]==='undefined')//check if already initialized
             {
-                ChangeBuffer[row[row.length-1].toString()]=new ChangeRow({id: parseInt(row[row.length-1]), col3: elem.target.innerHTML.trim()});
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]=new ChangeRow({id: record_ids[parseInt(row[row.length-1])], col3: elem.target.innerHTML.trim()});
             //    console.log("first case 1");
             }
             else //otherwise no need to instantiate just alter already existing object
             {
-                ChangeBuffer[row[row.length-1].toString()].id=parseInt(row[row.length-1]);
-                ChangeBuffer[row[row.length-1].toString()].column3=elem.target.innerHTML.trim();
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].id=record_ids[parseInt(row[row.length-1])];
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].column3=elem.target.innerHTML.trim();
             //    console.log("second case 1");
             }
             console.log(ChangeBuffer);
@@ -125,17 +129,17 @@ function editationMode()
         if(rgx.test(x))
         {
             $(elem.target).popover("dispose");
-            if(typeof ChangeBuffer[row[row.length-1].toString()]==='undefined')//check if already initialized
+            if(typeof ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]==='undefined')//check if already initialized
             {
-                ChangeBuffer[row[row.length-1].toString()]=new ChangeRow({
-                    id: parseInt(row[row.length-1]), col3: elem.target.innerHTML.trim()
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]=new ChangeRow({
+                    id: record_ids[parseInt(row[row.length-1])], col3: elem.target.innerHTML.trim()
                 });
             //    console.log("first case 2");
             }
             else //otherwise no need to instantiate just alter already existing object
             {
-                ChangeBuffer[row[row.length-1].toString()].id=parseInt(row[row.length-1]);
-                ChangeBuffer[row[row.length-1].toString()].column3=elem.target.innerHTML.trim();
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].id=record_ids[parseInt(row[row.length-1])];
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].column3=elem.target.innerHTML.trim();
                 //console.log("second case 2");
             }
             console.log(ChangeBuffer);
@@ -157,18 +161,18 @@ function editationMode()
         {
             console.log("select " + elem.target.value.trim());
             var row=$(elem.target).parent().attr("id").trim().split("_");
-            if(typeof ChangeBuffer[row[row.length-1].toString()]==='undefined')//check if already initialized
+            if(typeof ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]==='undefined')//check if already initialized
             {
-                ChangeBuffer[row[row.length-1].toString()]=new ChangeRow({
-                    id: parseInt(row[row.length-1]), sh: elem.target.value.trim()
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]=new ChangeRow({
+                    id: record_ids[parseInt(row[row.length-1])], sh: elem.target.value.trim()
                 });
                 //console.log("first case 2 ");
                 //console.log(ChangeBuffer);
             }
             else //otherwise no need to instantiate just alter already existing object
             {
-                ChangeBuffer[row[row.length-1].toString()].id=parseInt(row[row.length-1]);
-                ChangeBuffer[row[row.length-1].toString()].shift=elem.target.innerHTML.trim();
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].id=record_ids[parseInt(row[row.length-1])];
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].shift=elem.target.innerHTML.trim();
                 //console.log("first case 2 ");
                 //console.log(ChangeBuffer);
             }
@@ -177,17 +181,17 @@ function editationMode()
         else if($(elem.target).is("option")) {
             console.log('opt');
             var row=$($(elem.target).parent()).parent().attr("id").trim().split("_");
-            if(typeof ChangeBuffer[row[row.length-1].toString()]==='undefined')//check if already initialized
+            if(typeof ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]==='undefined')//check if already initialized
             {
-                ChangeBuffer[row[row.length-1].toString()]=new ChangeRow({
-                    id: parseInt(row[row.length-1]), sh: elem.target.value.trim()
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()]=new ChangeRow({
+                    id: record_ids[parseInt(row[row.length-1])], sh: elem.target.value.trim()
                 });
             //    console.log("first case 2");
             }
             else //otherwise no need to instantiate just alter already existing object
             {
-                ChangeBuffer[row[row.length-1].toString()].id=parseInt(row[row.length-1]);
-                ChangeBuffer[row[row.length-1].toString()].shift=elem.target.innerHTML.trim();
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].id=record_ids[parseInt(row[row.length-1])];
+                ChangeBuffer[record_ids[parseInt(row[row.length-1])].toString()].shift=elem.target.innerHTML.trim();
                 //console.log("second case 2");
             }
             //console.log(ChangeBuffer);

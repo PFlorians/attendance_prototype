@@ -5,6 +5,7 @@ function getNextMonth()//let's handle the array overflow on backend
         $("#save-item").remove();
         $("#cancel-item").remove();
         $("#editation-item").removeClass("d-none");
+        ChangeBuffer = new Object();
     }
     $.ajax({
         method: 'POST',
@@ -29,6 +30,7 @@ function getPrevMonth()
         $("#save-item").remove();
         $("#cancel-item").remove();
         $("#editation-item").removeClass("d-none");
+        ChangeBuffer = new Object();
     }
     $.ajax({
         method: 'POST',
@@ -53,15 +55,8 @@ function saveEditedData()
         url: '/saveChanges',
         data: {uname: $("#logout").text().trim(), data: ChangeBuffer},
         dataType: 'json',
-        success: function(data){
-            var x=JSON.parse(data);
-            console.log("data received");
-            console.log(x);
+        success: function(){
+            location.reload();
         }
     });
-}
-//invoke editation cancellation
-function cancelEditation()
-{
-
 }
