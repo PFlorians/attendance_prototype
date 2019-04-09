@@ -97,6 +97,20 @@ $app->post('/', function(Request $req, Response $res, array $args){
         // code...
     }
 });
+$app->post('/saveChanges', function(Request $req, Response $res, array $args){
+    $data=$req->getParsedBody();//gets an array
+    $usr=filter_var($data['uname'], FILTER_SANITIZE_STRING);
+    $x=new \attendance\Init($this->logger, $this->renderer, $this->db, null);
+    $x->init($req, $res, $args);
+
+    $dbinit=$x->getDbInitiator();
+    $handler=$dbinit->getDBRequestHandler();
+    $handler->setUname($usr);
+    /*$jsonData=json_encode(array('res'=>var_dump(json_decode($data))
+    ));
+    $newres=$res->withJson($jsonData);*/
+    //return $res;
+});
 $app->get('/', function (Request $request, Response $response, array $args)
 {
     // Sample log message

@@ -1,5 +1,11 @@
 function getNextMonth()//let's handle the array overflow on backend
 {
+    if($("#save-item") || $("#cancel-item"))
+    {
+        $("#save-item").remove();
+        $("#cancel-item").remove();
+        $("#editation-item").removeClass("d-none");
+    }
     $.ajax({
         method: 'POST',
         url: '/month/'+(currentMonthIndex+1),
@@ -18,6 +24,12 @@ function getNextMonth()//let's handle the array overflow on backend
 
 function getPrevMonth()
 {
+    if($("#save-item") || $("#cancel-item"))
+    {
+        $("#save-item").remove();
+        $("#cancel-item").remove();
+        $("#editation-item").removeClass("d-none");
+    }
     $.ajax({
         method: 'POST',
         url: '/month/'+(currentMonthIndex-1),
@@ -37,9 +49,15 @@ function getPrevMonth()
 function saveEditedData()
 {
     $.ajax({
-        method: 'GET',
-        url: '/alteration',
-        data: {}
+        method: 'POST',
+        url: '/saveChanges',
+        data: {uname: $("#logout").text().trim(), data: ChangeBuffer},
+        dataType: 'json',
+        success: function(data){
+            var x=JSON.parse(data);
+            console.log("data received");
+            console.log(x);
+        }
     });
 }
 //invoke editation cancellation
